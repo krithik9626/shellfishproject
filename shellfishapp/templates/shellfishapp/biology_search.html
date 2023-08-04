@@ -1,0 +1,371 @@
+{% extends 'shellfishapp/header2.html' %}
+{% block content %}
+<form method="get">
+    <style>
+        .combo-box {
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .combo-box .search-results {
+            display: none;
+            position: relative;
+            height: 200px;
+            left: 0;
+            width: 19%;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            list-style-type: none;
+            margin: 0;
+            overflow-y: auto;
+        }
+
+        .combo-box .search-results li {
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .combo-box .search-results li:hover {
+            background-color: #6ed1f0;
+        }
+    </style>
+    </style>
+    <br>
+    
+   
+    <div align="center">
+    <label style="color:darkblue; font-size: 25px;font-weight:bold">Search for Biology</label>
+    <div>
+    <div  align="center" class="combo-box">
+        <!--<input type="text" id="search-input" name="search" autocomplete="off">-->
+        
+        <input type="text" style="font-size: 16px" placeholder="" name="ScientificName" id="search-input" required/>
+        <button type="submit" style="width: 50px; height: 40px;"><i class="fa fa-search fa-lg"></i></button>
+        <ul id="search-results" class="search-results"></ul>
+    </div>
+
+    <script>
+        const searchInput = document.querySelector('#search-input');
+        const searchResults = document.querySelector('#search-results');
+        let timerId;
+
+        searchInput.addEventListener('input', handleInput);
+
+        function handleInput(event) {
+            const term = event.target.value;
+            clearTimeout(timerId);
+            timerId = setTimeout(() => {
+                if (term.length >= 1) {
+                    fetch(`/search/autocomplete1/?term=${term}`)
+                        .then(response => response.json())
+                        .then(data => showResults(data));
+                } else {
+                    clearResults();
+                }
+            }, 300);
+        }
+
+        function showResults(results) {
+            searchResults.innerHTML = '';
+
+            if (results.length > 0) {
+                results.forEach(result => {
+                    const li = document.createElement('li');
+                    li.textContent = result;
+                    li.addEventListener('click', () => {
+                        searchInput.value = result;
+                        clearResults();
+                    });
+                    searchResults.appendChild(li);
+                });
+                searchResults.style.display = 'block';
+            } else {
+                searchResults.style.display = 'none';
+            }
+        }
+
+        function clearResults() {
+            searchResults.innerHTML = '';
+            searchResults.style.display = 'none';
+        }
+    </script>
+<!--
+    <div align="center">
+        <label style="color:darkblue; font-size: 25px;font-weight:bold">Search for Biology</label>
+        <input type="text" style="font-size: 16px"  placeholder="Scientific Name" name="ScientificName" />
+        <button type="submit" style="width:50px; height:40px;"><i class="fa fa-search fa-lg"></i></button>
+    </div>
+-->
+    <br><br>
+
+    {% if chk == 1 %} 
+    {% for getData in BiologyInsert %}
+    <fieldset style="width:80%;font-family: verdana;text-align:center;background: #e6f2ff; margin:auto; border:0px;" >
+        <legend style=" color:darkblue; text-align: left ;font-family: Arial ;font-size: 30px; font-weight:bold"><i>{{getData.ScientificName}}</i> {{getData.Author}}</legend>
+        <table bgcolor="#e6f2ff" align="center" width="95%">
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Ecology / Habitat</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Ecology_Habitat}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Life Cycle and Mating Behaviour</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.LifeCycleAndMatingBehaviour}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Life Span</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.LifeSpan}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Symbiotic Relationship</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SymbioticRelationship}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Depth Ranges</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.DepthRanges}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Biology</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Biology}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sex</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Sex}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Size Ranges in Total Length</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SizeRangesTotalLength}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Size Ranges in Carapace Length</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SizeRangesCarapaceLength}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Reproduction Strategy</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.ReproductionStrategy}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Breeding Season</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.BreedingSeason}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sexual Dimorphism</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SexualDimorphism}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Molting Frequency</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.MoltingFrequency}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Breeding Frequency</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.BreedingFrequency}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Age Sexual Maturity</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.AgeSexualMaturity}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Fecundity</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Fecundity}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Larval Development</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.LarvalDevelopment}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Group</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Group}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Mobility</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Mobility}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Dispersion</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Dispersion}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Feeding Behaviour</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.FeedingBehaviour}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Feeding Type</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.FeedingType}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Food Items</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.FoodItems}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Commerical Importance</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.CommericalImportance}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Ecological Utlity</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.EcologicalUtlity}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Economic Utility</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.EconomicUtility}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Aquaculture Utility</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.AquacultureUtility}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Consumer Utility</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.ConsumerUtility}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Competitors</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Competitors}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Ecological Impact</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.EcologicalImpact}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Economic Impact</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.EconomicImpact}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Comments</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Comments}}</label>
+                </td>
+            </tr>
+        </table>
+        <br><br>
+    </fieldset>
+    {% endfor %}
+    {% endif %}
+
+    
+</form>
+{% endblock %}

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+{% extends 'shellfishapp/header.html' %}
+{% block content %}
+<html>
+<head>
+	<title>Occurrences</title>
+	<style type="text/css">
+
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+
+</head>
+<body>
+
+
+{% if messages%}
+{% for message in messages %}
+<h2 style="color:black;text-align:center;font-family: verdana;font-size: 25px">{{message}}</h2>
+{% endfor %}
+{% endif %}
+<form method="POST" action="/occupdate/{{OccurrenceInsert.id}}" autocomplete="off">
+	<div align="center">
+
+		{% csrf_token %}
+		<br>
+
+		<fieldset style="width:80%;font-family: verdana;text-align:left;background: #e6f2ff">
+			<legend style=" color:darkblue; text-align: center;font-family: Arial ;font-size: 25px; font-weight:bold">Occurrence ( Data Edit Page )</legend>
+
+			<table style="width: 100%">
+				<!--
+				<tr>
+					<th colspan="3">
+						<br>
+						<label style="color:darkblue; font-size: 15px">Occurrence ID : </label>
+						<label style="color:darkblue; font-size: 15px">{{OccurrenceInsert.id}}</label>
+						<br><br>
+					</th>
+				</tr>
+			-->
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Scientific Name</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.ScientificName}}" name="ScientificName" readonly/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Shrimp Prawn ID</label>
+						<input type="text" style="font-size: 15px"  value="{{OccurrenceInsert.ShrimpPrawnID}}" name="ShrimpPrawnID" readonly/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">GBIF ID</label>
+						<input type="text" style="font-size: 15px"  value="{{OccurrenceInsert.GBIFID}}" name="GBIFID"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Family</label>
+						<input type="text" style="font-size: 15px"  value="{{OccurrenceInsert.Family}}" name="Family"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Genus</label>
+						<input type="text" style="font-size: 15px"  value="{{OccurrenceInsert.Genus}}" name="Genus"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Author</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.Author}}" name="Author"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Taxon Rank</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.TaxonRank}}" name="TaxonRank"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Country Code</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.CountryCode}}" name="CountryCode"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Locality</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.Locality}}" name="Locality"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">State / Province</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.StateProvince}}" name="StateProvince"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Occurrence Status</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.OccurrenceStatus}}" name="OccurrenceStatus"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Individual Count</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.IndividualCount}}" name="IndividualCount"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Latitude</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.Latitude}}" name="Latitude"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Longitude</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.Longitude}}" name="Longitude"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Record Basis</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.RecordBasis}}" name="RecordBasis"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Institution Code</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.InstitutionCode}}" name="InstitutionCode"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Catalogue Number</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.CatalogueNumber}}" name="CatalogueNumber"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Identified By</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.IdentifiedBy}}" name="IdentifiedBy"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">License</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.License}}" name="License"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Type Status</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.TypeStatus}}" name="TypeStatus"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Establishment Means</label>
+						<input type="text" style="font-size: 15px" value="{{OccurrenceInsert.EstablishmentMeans}}" name="EstablishmentMeans"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+			</table>
+			<input type="submit" class="button button1" value="Update Data"/>
+			<a href ="{% url 'occ_view' %}"><button type="button" class="button button1">Back</button></a>
+			<br>
+		</fieldset>
+
+
+	</div>
+</form>
+
+
+
+</body>
+</html>
+{% endblock %}
+

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+{% extends 'shellfishapp/header.html' %}
+{% block content %}
+<html>
+<head>
+	<title>ShellFish</title>
+	<style type="text/css">
+
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+</head>
+<body>
+
+{% if messages%}
+{% for message in messages %}
+<h2 style="color:black;text-align:center;font-family: verdana;font-size: 25px">{{message}}</h2>
+{% endfor %}
+{% endif %}
+
+<form method="POST" action="/Crab_generalinformationupdate/{{Crab_TaxonmyDistributionInsert.id}}" autocomplete="off">
+	<div align="center">
+		{% csrf_token %}
+
+		<br>
+		<fieldset style="width:80%;font-family: verdana;text-align:left;background: #e6f2ff">
+			<legend style=" color:darkblue; text-align: center;font-family: Arial ;font-size: 25px; font-weight:bold">General Information ( Data Edit Page )</legend>
+			<table style="width: 100%">
+				<tr>
+					<!--
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">ShrimpPrawn Id : </label>
+						<label style="color:darkblue; font-size: 15px">{{Crab_TaxonmyDistributionInsert.id}}</label>
+						<br><br>
+					</th>
+				-->
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Scientific Name</label>
+						<input type="text" style="font-size: 15px" value="{{Crab_TaxonmyDistributionInsert.ScientificName}}" name="ScientificName"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+
+				<tr>
+					
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Environment</label>
+						<input type="text" style="font-size: 15px" value="{{Crab_TaxonmyDistributionInsert.Environment}}" name="Environment"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Common Name</label>
+						<input type="text" style="font-size: 15px" value="{{Crab_TaxonmyDistributionInsert.CommonName}}" name="CommonName"/>
+						<br>
+						<br>
+					</th>
+					
+				</tr>
+			
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Conservation Status</label>
+						<input type="text" style="font-size: 15px" value="{{Crab_TaxonmyDistributionInsert.ConservationStatus}}" name="ConservationStatus"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Population Status</label>
+						<input type="text" style="font-size: 15px" value="{{Crab_TaxonmyDistributionInsert.PopulationStatus}}" name="PopulationStatus"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Distribution In India</label>
+						<br>
+						<textarea rows="5" cols="50" style="font-size: 15px" id="DistributionInIndia" name="DistributionInIndia"> </textarea>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Distribution Outside Of India</label>
+						<br>
+						<textarea rows="5" cols="50" style="font-size: 15px" id="DistributionOutsideOfIndia" name="DistributionOutsideOfIndia"> </textarea>
+						<br>
+						<br>
+					</th>
+				</tr>
+			</table>
+			<input type="submit" class="button button1" value="Update Data"/>
+			<a href ="{% url 'Crab_generalinformation_view' %}"><button type="button" class="button button1">Back</button></a>
+			<br>
+		</fieldset>
+	</div>
+</form>
+
+<script>
+{
+  
+  document.getElementById("DistributionInIndia").value="{{Crab_TaxonmyDistributionInsert.DistributionInIndia}}";
+  document.getElementById("DistributionOutsideOfIndia").value="{{Crab_TaxonmyDistributionInsert.DistributionOutsideOfIndia}}";
+}
+</script>
+</body>
+</html>
+
+
+{% endblock %}

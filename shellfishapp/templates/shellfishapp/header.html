@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICAR-NBFGR CrustaceanRIS</title>
+</head>
+<body>
+
+<header><img src="{% static 'shellfishApp/images/Shellfish.jpg' %}" width="100%"> </header>
+
+{% include 'shellfishapp/includes/navbar.html' %}
+
+
+{% include 'shellfishapp/includes/messages.html' %}
+{% block content %}
+
+{% endblock %}
+&nbsp;
+<h4 style="color:white;text-align:center;font-family: verdana;font-size: 16px; background-color : darkslategray; padding : 20px;">Copyright &copy 2023 - All Rights Reserved - ICAR-National Bureau of Fish Genetic Resources</h4>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% extends 'shellfishapp/header.html' %}
+{% block content %}
+<html>
+<head>
+    <title>image</title>
+    <style type="text/css">
+
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+
+</head>
+<body>
+
+
+<br>
+<div align="center">
+    <fieldset style="width:80%;font-family: verdana;text-align:left;background: #e6f2ff" >
+        <legend style=" color:darkblue; text-align: center ;font-family: Arial ;font-size: 25px; font-weight:bold">Image ( Data View Page )</legend>
+
+        <table bgcolor="#e6f2ff" align="center" width="100%">
+            <tr>
+                <th>S No.</th>
+                <th>Scientific Name</th>
+                <th>Image 1</th>
+                <th>Image 2</th>
+                <th>Image 3</th>
+                <th>More Options </th>
+            </tr>
+            {% for getData in vw %}
+            <tr>
+                <td>{{vw.start_index|add:forloop.counter0}}</td>
+                <td>{{getData.ScientificName}}</td>
+                <td>
+                    {% if getData.Image1 %}
+
+                    <img src="{{ getData.Image1.url }}" width="100" height="100">
+                    {% endif %}
+                </td>
+                <td>
+                    {% if getData.Image2 %}
+
+                    <img src="{{ getData.Image2.url }}" width="100" height="100">
+                    {% endif %}
+                </td>
+                <td>
+                    {% if getData.Image3 %}
+
+                    <img src="{{ getData.Image3.url }}" height="100">
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/Crab_imgedit/{{getData.id}}">Edit</a>
+                    <br>
+                    <a href="/Crab_imgdelete/{{getData.id}}" onclick="return confirm('Are you sure want to delete')">Delete</a>
+                </td>
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <th colspan="17">
+                    <a href ="{% url 'home_page' %}"><button type="button" class="button button1">Back to Home Page</button></a>
+                </th>
+            </tr>
+
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if vw.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ vw.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ vw.number }} of {{ vw.paginator.num_pages }}.
+                </span>
+        
+                {% if vw.has_next %}
+                    <a href="?page={{ vw.next_page_number }}">next</a>
+                    <a href="?page={{ vw.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>          
+    </fieldset>
+</div>
+
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% extends 'shellfishapp/header.html' %}
+{% block content %}
+
+<html>
+<head>
+	<title>Type Specimen</title>
+	<style type="text/css">
+
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+	<script>
+		if ( window.history.replaceState)
+		{
+			window.history.replaceState( null, null, window.location.href );
+		}
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script>
+        //on document ready
+        $(document).ready(()=>{
+            //adds an handler to the change event on #sinameid
+            $("#scinameid").change((e)=>{
+            let sciname = $(e.target).val().split('-');
+            $("#sid").val(sciname[0]);
+            $("#sname").val(sciname[1]);
+            });
+        });
+    </script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+
+
+
+
+</head>
+<body>
+
+<br>
+<br>
+{% if messages%}
+{% for message in messages %}
+<h2 style="color:black;text-align:center;font-family: verdana;font-size: 25px">{{message}}</h2>
+{% endfor %}
+{% endif %}
+
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+<div id="mapid" style="height: 400px;"></div>
+
+{% block scripts %}
+<script>
+    var mymap = L.map('mapid').setView([21.84673, 75.35247], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+    }).addTo(mymap);
+
+    var marker = L.marker([17.385044, 78.486671]).addTo(mymap);
+
+    function onMapClick(e) {
+        marker.setLatLng(e.latlng);
+        document.getElementById("id_latitude").value = e.latlng.lat;
+        document.getElementById("id_longitude").value = e.latlng.lng;
+    }
+
+    mymap.on('click', onMapClick);
+</script>
+{% endblock %}
+<tr>
+    <th colspan="3">
+        
+        <a href ="{% url 'typelocality_view' %}"><button type="button" class="button button1">View All Data</button></a>
+        <!--<a href ="{% url 'View_page' %}"><button type="button" class="button button1">View Last Data</button></a>-->
+    </th>
+</tr>
+<tr>
+    <th colspan="3">
+        <a href ="{% url 'home_page' %}"><button type="button" class="button button1">Back to Home Page</button></a>
+    </th>
+</tr>
+
+</body>
+</html>
+
+{% endblock %}

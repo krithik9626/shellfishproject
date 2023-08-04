@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+{% extends 'shellfishapp/header.html' %}
+{% block content %}
+{% load static %}
+<!--<link rel="stylesheet" href="{% static 'shellfishapp/css/bootstrap.css' %}"/>
+<link rel="stylesheet" href="{% static 'shellfishapp/css/bootstrap-grid.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'shellfishapp/css/bootstrap.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'shellfishapp/css/bootstrap-grid.css' %}"/>-->
+<html>
+<head>
+	<title>ShellFish</title>
+	<style type="text/css">
+		
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+	<script>
+		if ( window.history.replaceState)
+		{
+			window.history.replaceState( null, null, window.location.href );
+		}
+	</script>
+
+<style>
+	/* Style for the pop-up box */
+	.popup {
+	  position: fixed;
+	  top: 80%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	  width: 300px;
+	  height: 100px;
+	  padding: 20px;
+	  background-color: rgb(234, 242, 247);
+	  border: 1px solid #ccc;
+	  border-radius: 5px;
+	  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+	  text-align: center;
+	  font-size: 36px;
+	}
+
+	/* Style for the close button */
+	.popup .close {
+	  position: absolute;
+	  top: 10px;
+	  right: 10px;
+	  cursor: pointer;
+	}
+  </style>
+</head>
+<body bgcolor="#eff5f5">
+<br>
+<br>
+{% if messages%}
+{% for message in messages %}
+<div class="popup"><span class="close">&times;</span>{{message}}&#x1F609;</div>
+<script>
+// JavaScript to handle the close button functionality
+const closeBtn = document.querySelector('.close');
+const popup = document.querySelector('.popup');
+
+closeBtn.addEventListener('click', () => {
+  popup.style.display = 'none';
+});
+</script>
+{% endfor %}
+{% endif %}
+
+<form method="POST" autocomplete="off">
+	<div align="center">
+
+		{% csrf_token %}
+		<fieldset style="width:80%;font-family: verdana;text-align:left;background: #e6f2ff">
+			<legend style=" color:darkblue; text-align: center;font-family: Arial ;font-size: 25px; font-weight:bold"> Taxonomy & Distribution ( Data Entry Dashboard )</legend>
+			<table style="width: 100%">
+				<tr>
+					<th>
+						<br>
+                        <label style="color:darkblue; font-size: 16px">Kingdom</label>
+						<input type="text" style="font-size: 16px"  value="Animalia" name="Kingdom"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+                        <label style="color:darkblue; font-size: 16px">Phylum</label>
+						<input type="text" style="font-size: 16px" value="Arthropoda" name="Phylum"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Sub-Phylum</label>
+						<input type="text" style="font-size: 16px" value="Crustacea" name="SubPhylum"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Class</label>
+						<input type="text" style="font-size: 16px" value="Malacostraca" name="Class"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Sub-Class</label>
+						<input type="text" style="font-size: 16px" value="Eumalacostraca" name="SubClass">
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Super-Order</label>
+						<input type="text" style="font-size: 16px" value="Eucarida" name="SuperOrder"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Order</label>
+						<input type="text" style="font-size: 16px" value="Decapoda" name="Order"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Sub-Order</label>
+						<select name="SubOrder" >
+							<option disabled="true" selected>---Select---</option>
+							<option value="Pleocyemata">Pleocyemata</option>
+							<option value="Dendrobranchiata">Dendrobranchiata</option>
+						</select>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Infra-Order</label>
+						<select name="InfraOrder" >
+							<option disabled="true" selected>---Select---</option>
+							<option value="Astacidea ">Astacidea </option>
+							<option value="Axiidea">Axiidea</option>
+							<option value="Achelata">Achelata</option>
+							<option value="Anomura">Anomura</option>
+						</select>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Super-Family</label>
+						<input type="text" placeholder="SuperFamily" name="SuperFamily"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Family</label>
+						<input type="text" placeholder="Family" name="Family"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Sub-Family</label>
+						<input type="text" placeholder="SubFamily" name="SubFamily"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Genus</label>
+						<input type="text" placeholder="Genus" name="Genus"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Scientific Name</label>
+						<input type="text" placeholder="Scientific Name" name="ScientificName"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Taxonomic Rank</label>
+						<select name="TaxonomicRank" >
+							<option disabled="true" selected>---Select---</option>
+							<option value="Species">Species</option>
+							<option value="Subspecies">Subspecies</option>
+						</select>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Sub-Species</label>
+						<input type="text" placeholder="Subspecies" name="Subspecies"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Author</label>
+						<br>
+						<input type="text" placeholder="Author" name="Author"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Origin type</label>
+						<br>
+                        <input type="text" placeholder="Origin type" name="OriginType"/>
+						<br>
+						<br>
+					</th>
+					
+					</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Accepted Valid Name</label>
+						<br>
+						<textarea rows="5" cols="50" name="AcceptedValidName"></textarea>
+						<br>
+						<br>
+					</th>
+					
+					<th colspan="2">
+						<br>
+                        <label style="color:darkblue; font-size: 16px">Main Reference</label>
+						<br>
+						<textarea rows="5" cols="50" name="MainReference"></textarea>
+						<br>
+						<br>
+					</th>
+					
+				</tr>
+				</table>
+
+			<table style="width: 100%">
+				
+
+
+				
+				<tr>
+					
+					<th colspan="3">
+						<br>
+						<label style="color:darkblue; font-size: 16px">Depth Range</label>
+						<br>
+                        <input type="text" placeholder="Depth Range" name="DepthRange"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+            
+				<tr>
+					<th colspan="2">
+						<input type="submit" class="button button1" value="Add Data"/>
+						<input type="reset" class="button button2" value="Reset Data"/>
+						<a href ="{% url 'lobster_taxo_view' %}"><button type="button" class="button button1">View All Data</button></a>
+						<!--<a href ="{% url 'View_page' %}"><button type="button" class="button button1">View Last Data</button></a>-->
+					</th>
+
+				</tr>
+				<tr>
+					<th colspan="2">
+						<a href ="{% url 'home_page' %}"><button type="button" class="button button1">Back to Home Page</button></a>
+					</th>
+				</tr>
+
+
+			</table>
+			<br>
+
+
+		</fieldset>
+
+
+
+	</div>
+</form>
+
+
+</body>
+</html>
+
+
+{% endblock %}

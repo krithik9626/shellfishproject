@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+{% extends 'shellfishapp/header.html' %}
+{% block content %}
+<html>
+<head>
+	<title>Image</title>
+	<style type="text/css">
+
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+
+</head>
+<body>
+
+
+{% if messages%}
+{% for message in messages %}
+<h2 style="color:black;text-align:center;font-family: verdana;font-size: 25px">{{message}}</h2>
+{% endfor %}
+{% endif %}
+
+<form method="POST" action="/Crab_imgupdate/{{Crab_ImageInsert.id}}" enctype="multipart/form-data" autocomplete="off">
+	<div align="center">
+
+		{% csrf_token %}
+        {{ form.as_p }}
+		<br>
+
+		<fieldset style="width:80%;font-family: verdana;text-align:left;background: #e6f2ff">
+			<legend style=" color:darkblue; text-align: center;font-family: Arial ;font-size: 25px; font-weight:bold">Image ( Data Edit Page )</legend>
+
+			<table style="width: 100%">
+				<tr>
+					<!--
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">ID : </label>
+						<label style="color:darkblue; font-size: 15px">{{Crab_ImageInsert.id}}</label>
+						<br><br>
+					</th>
+				-->
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Scientific Name</label>
+						<input type="text" style="font-size: 15px" value="{{Crab_ImageInsert.ScientificName}}" name="ScientificName" readonly/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Crab ID</label>
+						<input type="text" style="font-size: 15px"  value="{{Crab_ImageInsert.CrabID}}" name="CrabID" readonly/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Image1</label>
+						<input type="file" style="font-size: 15px" value="{{Crab_ImageInsert.Image1}}" name="Image1"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Image2</label>
+						<input type="file" style="font-size: 15px" value="{{Crab_ImageInsert.Image2}}" name="Image2"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Image3</label>
+						<input type="file" style="font-size: 15px" value="{{Crab_ImageInsert.Image3}}" name="Image3"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				
+				
+			</table>
+			<input type="submit" class="button button1" value="Update Data"/>
+			<a href ="{% url 'Crab_img_view' %}"><button type="button" class="button button1">Back</button></a>
+			<br>
+		</fieldset>
+
+
+	</div>
+</form>
+
+
+<script>
+    {
+      document.getElementById("Image1").value="{{Crab_ImageInsert.Image1}}";
+      document.getElementById("Image2").value="{{Crab_ImageInsert.Image2}}";
+      document.getElementById("Image3").value="{{Crab_ImageInsert.Image3}}";
+    }
+    </script>
+
+
+</body>
+</html>
+
+
+{% endblock %}

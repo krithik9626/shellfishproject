@@ -1,0 +1,51 @@
+{% extends 'shellfishapp/header.html' %}
+<!--Block content goes below-->
+{% block content %}
+
+<div align="center">
+    <br>
+    <br>
+    {% if messages%}
+{% for message in messages %}
+<h2 style="color:black;text-align:center;font-family: verdana;font-size: 25px">{{message}}</h2>
+{% endfor %}
+{% endif %}
+    <legend style=" color:darkblue; text-align: center;font-family: Arial ;font-size: 25px; font-weight:bold"> Welcome To ICAR-NBFGR </legend>
+    <fieldset style="width:60%;font-family: verdana;text-align:left;background: #e5e5e5">
+        
+        <p class="text-justify" style="text-align:justify">
+            Crustacean Resource Information System of India abbreviately termed as
+            CrustaceaRIS facilitates the data management by the registered users. The
+            data management section provides the ability to the registered user to feed
+            the data into tables of the database, view the records and update the
+            record by editing. This section includes the feature of deleting the records
+            from the tables of the database. The interactive web-based form interfaces
+            integrated with action command buttons, text boxes, drop down list boxes
+            provide ease in manging both data and records. Such interfaces are
+            available for shrimps and prawns, lobsters and crabs to manage the data at
+
+            species level. This section also features to upload the images of species of
+            shrimps and prawns, lobsters and crabs. Maximum three images can be
+            uploaded using this feature. The database administrator has full control
+            over the data entered by the registered user and can accept or reject the
+            record entered by the user. The rejection of the record by the database
+            administrator sends the record back to user with comments.
+        </p>
+        <!--
+        <p class="text-justify" style="text-align:justify">
+            The mandate of the Institute includes collection, classification and cataloguing of fish genetic resources of the country, maintenance and preservation of fish genetic material for conservation of endangered fish species and evaluation and valuation of indigenous and exotic fish species. The Bureau has a well-developed air-conditioned library with more than 6950 books. The library subscribes 27 foreign and 68 Indian journals. The library is equipped with the LIBSYS Library Automations software for automation of different jobs of the library. The ICAR-NBFGR has a fully equipped AKMU which provides round the clock Internet facility to all scientists and sections at their work place. The Institute has a well-furnished air conditioned auditorium and a committee room. The Bureau has created excellent infrastructure and expertise in several research areas including development of fish databases, genetic characterization, gene banks, fish germplasm and habitat inventory, risks analysis of exotic species, diagnostics for OIE notified pathogens, aquatic microbes and other areas of germplasm conservation with special focus on threatened, prioritized and exotic fish species.
+        </p>
+        <p class="text-justify" style="text-align:justify">
+            The ICAR-NBFGR is an ISO 9001: 2008 certified organization and has been awarded with the Sardar Patel Best Institute Award for the year 2011 by the ICAR, New Delhi. The Institute has also established ‘Ganga Aquarium’, one of the largest and magnificent public aquariums in the country which is serving as a great source of spreading public awareness and education about fish diversity of the country. The Ganga Aquarium has been awarded with the ISO 14001:2004 and 9001:2008 certificates for maintaining environmental policy and quality management.
+        </p>
+        <p class="text-justify" style="text-align:justify">
+            The Institute also undertakes capacity development programmes for various stakeholders including researchers, fish farmers, state fisheries department officials and students.
+
+
+
+
+
+        </p>-->
+    </fieldset>
+</div>
+{% endblock %}

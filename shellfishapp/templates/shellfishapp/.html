@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+    <title>images add data</title>
+    <style type="text/css">
+
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+    <script>
+		if ( window.history.replaceState)
+		{
+			window.history.replaceState( null, null, window.location.href );
+		}
+	</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+        //on document ready
+        $(document).ready(()=>{
+            //adds an handler to the change event on #sinameid
+            $("#scinameid").change((e)=>{
+            let sciname = $(e.target).val().split('-');
+            $("#sid").val(sciname[0]);
+            $("#sname").val(sciname[1]);
+            });
+        });
+    </script>
+
+
+</head>
+<body>
+<img src="{% static 'shellfishapp/images/shellfish.jpg' %}" width="100%">
+<br>
+<br>
+{% if messages%}
+{% for message in messages %}
+<h2 style="color:black;text-align:center;font-family: verdana;font-size: 25px">{{message}}</h2>
+{% endfor %}
+{% endif %}
+
+<form method="POST" autocomplete="off" enctype="multipart/form-data">
+    <div align="center">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <fieldset style="width:80%;font-family: verdana;text-align:left;background: #e6f2ff">
+            <legend style=" color:darkblue; text-align: center;font-family: Arial ;font-size: 25px; font-weight:bold"> Images ( Data Entry Dashboard )</legend>
+            <table style="width: 100%">
+                <tr>
+                    <th>
+                        <label style="color:darkblue; font-size: 16px ; text-align:center">Select</label>
+                        <select id="scinameid" class="scinameclass" onchange="getsciname()">
+                            <option disabled="true" selected>-- Scientific name --</option>
+                            {% for getData in Crab_TaxonmyDistributionInsert %}
+                            <option>{{getData.id}}-{{getData.ScientificName}}</option>
+                            {% endfor %}
+                        </select>
+                    </th>
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">CrabID</label>
+                        <input type="text" style="font-size: 16px"  placeholder="CrabID" name="CrabID" id="sid" readonly/>
+                        <br>
+                        <br>
+                    </th>
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">Scientific Name</label>
+                        <input type="text" style="font-size: 16px"  placeholder="ScientificName" name="ScientificName" id="sname" readonly/>
+                        <br>
+                        <br>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">Upload Image 1</label>
+                        <input type="file" name="Image1"/>
+                        <br>
+                        <br>
+                    </th>
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">Upload Image 2</label>
+                        <input type="file" name="Image2"/>
+                        <br>
+                        <br>
+                    </th>
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">Upload Image 3</label>
+                        <input type="file" name="Image3"/>
+                        <br>
+                        <br>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="3">
+                        <input type="submit" class="button button1" value="Add Data"/>
+                        <input type="reset" class="button button2" value="Reset Data"/>
+                        <a href ="{% url 'Crab_img_view' %}"><button type="button" class="button button1">View All Data</button></a>
+                        <!--<a href ="{% url 'View_page' %}"><button type="button" class="button button1">View Last Data</button></a>-->
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="3">
+                        <a href ="{% url 'home_page' %}"><button type="button" class="button button1">Back to Home Page</button></a>
+                    </th>
+                </tr>
+            </table>
+        </fieldset>
+
+
+
+    </div>
+</form>
+
+<h4 style="color:white;text-align:center;font-family: verdana;font-size: 16px; background-color : black; padding : 20px">Copyright &copy 2022 - All Rights Reserved - ICAR-National Bureau of Fish Genetic Resources</h4>
+</body>
+</html>
+
+

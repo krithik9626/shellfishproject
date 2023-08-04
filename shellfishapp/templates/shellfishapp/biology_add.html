@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+{% extends 'shellfishapp/header.html' %}
+{% block content %}
+<html>
+<head>
+	<title>Biology</title>
+	<style type="text/css">
+
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+	<script>
+		if ( window.history.replaceState)
+		{
+			window.history.replaceState( null, null, window.location.href );
+		}
+	</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+        //on document ready
+        $(document).ready(()=>{
+            //adds an handler to the change event on #sinameid
+            $("#scinameid").change((e)=>{
+            let sciname = $(e.target).val().split('-');
+            $("#sid").val(sciname[0]);
+            $("#sname").val(sciname[1]);
+            });
+        });
+    </script>
+	<style>
+		/* Style for the pop-up box */
+		.popup {
+		  position: fixed;
+		  top: 80%;
+		  left: 50%;
+		  transform: translate(-50%, -50%);
+		  width: 300px;
+		  height: 100px;
+		  padding: 20px;
+		  background-color: rgb(234, 242, 247);
+		  border: 1px solid #ccc;
+		  border-radius: 5px;
+		  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+		  text-align: center;
+          font-size: 36px;
+		}
+	
+		/* Style for the close button */
+		.popup .close {
+		  position: absolute;
+		  top: 10px;
+		  right: 10px;
+		  cursor: pointer;
+		}
+</style>
+
+</head>
+<body>
+
+<br>
+<br>
+{% if messages%}
+{% for message in messages %}
+<div class="popup"><span class="close">&times;</span>{{message}}&#x1F609;</div>
+<script>
+    // JavaScript to handle the close button functionality
+    const closeBtn = document.querySelector('.close');
+    const popup = document.querySelector('.popup');
+
+    closeBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+    });
+  </script>
+{% endfor %}
+{% endif %}
+
+<form method="POST" autocomplete="off">
+	<div align="center">
+
+		{% csrf_token %}
+		<fieldset style="width:80%;font-family: verdana;text-align:left;background: #e6f2ff">
+			<legend style=" color:darkblue; text-align: center;font-family: Arial ;font-size: 25px; font-weight:bold">Biology ( Data Entry Dashboard )</legend>
+			<table style="width: 100%">
+                <tr>
+                    <th colspan="2">
+                        <label style="color:darkblue; font-size: 16px ; text-align:center">Select</label>
+                        <select id="scinameid" class="scinameclass" onchange="getsciname()">
+                            <option disabled="true" selected>-- Scientific name --</option>
+                            {% for getData in TaxonmyDistributionInsert %}
+                            <option>{{getData.id}}-{{getData.ScientificName}}</option>
+                            {% endfor %}
+                        </select>
+                    </th>
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">Shrimp Prawn ID</label>
+                        <input type="text" style="font-size: 16px"  placeholder="Shrimp Prawn ID" name="ShrimpPrawnID" id="sid" required/>
+                        <br>
+                        <br>
+                    </th>
+				</tr>
+				<tr>
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">Scientific Name</label>
+                        <input type="text" style="font-size: 16px"  placeholder="Scientific Name" name="ScientificName" id="sname" required/>
+                        <br>
+                        <br>
+                    </th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Ecology/Habitat</label>
+						<input type="text" style="font-size: 16px"  placeholder="Ecology/Habitat" name="Ecology_Habitat"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Life Cycle And Mating Behaviour</label>
+						<input type="text" style="font-size: 16px"  placeholder="Life Cycle And Mating Behaviour" name="LifeCycleAndMatingBehaviour"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Lifespan</label>
+						<input type="text" style="font-size: 16px" placeholder="Lifespan" name="LifeSpan"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Symbiotic Relationship</label>
+						<input type="text" style="font-size: 16px" placeholder="Symbiotic Relationship" name="SymbioticRelationship"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Depth Ranges</label>
+						<input type="text" style="font-size: 16px" placeholder="Depth Ranges" name="DepthRanges"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Biology</label>
+						<input type="text" style="font-size: 16px"  placeholder="Biology" name="Biology"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Sex</label>
+						<input type="text" style="font-size: 16px"  placeholder="Sex" name="Sex"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Size Ranges In Total Length</label>
+						<input type="text" style="font-size: 16px"  placeholder="Size Ranges In Total Length" name="SizeRangesTotalLength"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Size Ranges In Carapace Length</label>
+						<input type="text" style="font-size: 16px" placeholder="Size Ranges In Carapace Length" name="SizeRangesCarapaceLength"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Reproduction Strategy</label>
+						<input type="text" style="font-size: 16px" placeholder="Reproduction Strategy" name="ReproductionStrategy"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Breeding Season</label>
+						<input type="text" style="font-size: 16px" placeholder="Breeding Season" name="BreedingSeason"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Sexual Dimorphism</label>
+						<input type="text" style="font-size: 16px" placeholder="Sexual Dimorphism" name="SexualDimorphism"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Molting Frequency</label>
+						<input type="text" style="font-size: 16px" placeholder="Molting Frequency" name="MoltingFrequency"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Breeding Frequency</label>
+						<input type="text" style="font-size: 16px" placeholder="Breeding Frequency" name="BreedingFrequency"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Age Sexual Maturity</label>
+						<input type="text" style="font-size: 16px" placeholder="Age Sexual Maturity" name="AgeSexualMaturity"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Fecundity</label>
+						<input type="text" style="font-size: 16px" placeholder="Fecundity" name="Fecundity"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Larval Development</label>
+						<input type="text" style="font-size: 16px" placeholder="Larval Development" name="LarvalDevelopment"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Group</label>
+						<input type="text" style="font-size: 16px" placeholder="Group" name="Group"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Mobility</label>
+						<input type="text" style="font-size: 16px" placeholder="Mobility" name="Mobility"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Dispersion</label>
+						<input type="text" style="font-size: 16px" placeholder="Dispersion" name="Dispersion"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Feeding Behaviour</label>
+						<input type="text" style="font-size: 16px" placeholder="Feeding Behaviour" name="FeedingBehaviour"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Feeding Type</label>
+						<input type="text" style="font-size: 16px" placeholder="Feeding Type" name="FeedingType"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Food Items</label>
+						<input type="text" style="font-size: 16px" placeholder="Food Items" name="FoodItems"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Commerical Importance</label>
+						<input type="text" style="font-size: 16px" placeholder="Commerical Importance" name="CommericalImportance"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Ecological Utlity</label>
+						<input type="text" style="font-size: 16px" placeholder="Ecological Utlity" name="EcologicalUtlity"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Economic Utility</label>
+						<input type="text" style="font-size: 16px" placeholder="Economic Utility" name="EconomicUtility"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Aquaculture Utility</label>
+						<input type="text" style="font-size: 16px" placeholder="Aquaculture Utility" name="AquacultureUtility"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Consumer Utility</label>
+						<input type="text" style="font-size: 16px" placeholder="Consumer Utility" name="ConsumerUtility"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Competitors</label>
+						<input type="text" style="font-size: 16px" placeholder="Competitors" name="Competitors"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Ecological Impact</label>
+						<input type="text" style="font-size: 16px" placeholder="Ecological Impact" name="EcologicalImpact"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Economic Impact</label>
+						<input type="text" style="font-size: 16px" placeholder="Economic Impact" name="EconomicImpact"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Comments</label>
+						<input type="text" style="font-size: 16px" placeholder="Comments" name="Comments"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th colspan="3">
+						<input type="submit" class="button button1" value="Add Data"/>
+						<input type="reset" class="button button2" value="Reset Data"/>
+						<a href ="{% url 'bio_view' %}"><button type="button" class="button button1">View All Data</button></a>
+						<!--<a href ="{% url 'View_page' %}"><button type="button" class="button button1">View Last Data</button></a>-->
+					</th>
+				</tr>
+				<tr>
+					<th colspan="3">
+						<a href ="{% url 'home_page' %}"><button type="button" class="button button1">Back to Home Page</button></a>
+					</th>
+				</tr>
+			</table>
+		</fieldset>
+
+
+
+	</div>
+</form>
+
+
+</body>
+</html>
+
+{% endblock %}

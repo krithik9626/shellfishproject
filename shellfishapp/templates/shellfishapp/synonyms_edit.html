@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{% extends 'shellfishapp/header.html' %}
+{% block content %}
+<html>
+<head>
+	<title>Synonyms</title>
+	<style type="text/css">
+
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+
+</head>
+<body>
+
+
+{% if messages%}
+{% for message in messages %}
+<h2 style="color:black;text-align:center;font-family: verdana;font-size: 25px">{{message}}</h2>
+{% endfor %}
+{% endif %}
+<form method="POST" action="/synupdate/{{SynonymsInsert.id}}" autocomplete="off">
+	<div align="center">
+
+		{% csrf_token %}
+		<br>
+
+		<fieldset style="width:80%;font-family: verdana;text-align:left;background: #e6f2ff">
+			<legend style=" color:darkblue; text-align: center;font-family: Arial ;font-size: 25px; font-weight:bold">Synonyms ( Data Edit Page )</legend>
+
+			<table style="width: 100%">
+				<tr>
+					<!--
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Synonym ID : </label>
+						<label style="color:darkblue; font-size: 15px">{{SynonymsInsert.id}}</label>
+						<br><br>
+					</th>
+				-->
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Scientific Name</label>
+						<input type="text" style="font-size: 15px" value="{{SynonymsInsert.ScientificName}}" name="ScientificName" readonly/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Shrimp Prawn ID</label>
+						<input type="text" style="font-size: 15px"  value="{{SynonymsInsert.ShrimpPrawnID}}" name="ShrimpPrawnID" readonly/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Synonym</label>
+						<input type="text" style="font-size: 15px"  value="{{SynonymsInsert.Synonym}}" name="Synonym"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Synonymy</label>
+						<input type="text" style="font-size: 15px"  value="{{SynonymsInsert.Synonymy}}" name="Synonymy"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Status</label>
+						<input type="text" style="font-size: 15px"  value="{{SynonymsInsert.Status}}" name="Status"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Valid</label>
+						<input type="text" style="font-size: 15px" value="{{SynonymsInsert.Valid}}" name="Valid"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Author</label>
+						<input type="text" style="font-size: 15px" value="{{SynonymsInsert.Author}}" name="Author"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+			</table>
+			<input type="submit" class="button button1" value="Update Data"/>
+			<a href ="{% url 'syn_view' %}"><button type="button" class="button button1">Back</button></a>
+			<br>
+		</fieldset>
+
+
+	</div>
+</form>
+
+
+
+
+
+
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% extends 'shellfishapp/header.html' %}
+{% block content %}
+<html>
+<head>
+	<title>Type Specimen</title>
+	<style type="text/css">
+
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+
+</head>
+<body>
+
+
+{% if messages%}
+{% for message in messages %}
+<h2 style="color:black;text-align:center;font-family: verdana;font-size: 25px">{{message}}</h2>
+{% endfor %}
+{% endif %}
+<form method="POST" action="/Crab_speciupdate/{{Crab_TypeSpecimenInsert.id}}" autocomplete="off">
+	<div align="center">
+
+		{% csrf_token %}
+		<br>
+
+		<fieldset style="width:80%;font-family: verdana;text-align:left;background: #e6f2ff">
+			<legend style=" color:darkblue; text-align: center;font-family: Arial ;font-size: 25px; font-weight:bold">TypeSpecimen ( Data Edit Page )</legend>
+
+			<table style="width: 100%">
+				<tr>
+					<!--
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Type Specimen ID : </label>
+						<label style="color:darkblue; font-size: 15px">{{Crab_TypeSpecimenInsert.id}}</label>
+						<br><br>
+					</th>
+				-->
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Scientific Name</label>
+						<input type="text" style="font-size: 15px" value="{{Crab_TypeSpecimenInsert.ScientificName}}" name="ScientificName" readonly/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Crab ID</label>
+						<input type="text" style="font-size: 15px"  value="{{Crab_TypeSpecimenInsert.CrabID}}" name="CrabID" readonly/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Type Specimen</label>
+						<input type="text" style="font-size: 15px"  value="{{Crab_TypeSpecimenInsert.TypeSpecimen}}" name="TypeSpecimen"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Geo Unit Locality</label>
+						<input type="text" style="font-size: 15px" value="{{Crab_TypeSpecimenInsert.Geo_Unit_Locality}}" name="Geo_Unit_Locality"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Descriptor</label>
+						<input type="text" style="font-size: 15px" value="{{Crab_TypeSpecimenInsert.Descriptor}}" name="Descriptor"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					
+					<th colspan="3">
+						<br>
+						<label style="color:darkblue; font-size: 15px">Specimen Catalogue Number</label>
+						<input type="text" style="font-size: 15px" value="{{Crab_TypeSpecimenInsert.SpecimenCatalogueNumber}}" name="SpecimenCatalogueNumber"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				
+			</table>
+			<input type="submit" class="button button1" value="Update Data"/>
+			<a href ="{% url 'Crab_speci_view' %}"><button type="button" class="button button1">Back</button></a>
+			<br>
+		</fieldset>
+
+
+	</div>
+</form>
+
+
+
+
+
+
+</body>
+</html>
+
+
+{% endblock %}

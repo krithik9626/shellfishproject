@@ -1,0 +1,155 @@
+{% extends 'shellfishapp/header2.html' %}
+{% block content %}
+<form method="get">
+    <style>
+        .combo-box {
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .combo-box .search-results {
+            display: none;
+            position: relative;
+            height: 200px;
+            left: 0;
+            width: 19%;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            list-style-type: none;
+            margin: 0;
+            overflow-y: auto;
+        }
+
+        .combo-box .search-results li {
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .combo-box .search-results li:hover {
+            background-color: #6ed1f0;
+        }
+    </style>
+    </style>
+    <br>
+    
+   
+    <div align="center">
+    <label style="color:darkblue; font-size: 25px;font-weight:bold">Search for Crab Occurences</label>
+    <div>
+    <div  align="center" class="combo-box">
+        <!--<input type="text" id="search-input" name="search" autocomplete="off">-->
+        
+        <input type="text" style="font-size: 16px" placeholder="" name="ScientificName" id="search-input" required/>
+        <button type="submit" style="width: 50px; height: 40px;"><i class="fa fa-search fa-lg"></i></button>
+        <ul id="search-results" class="search-results"></ul>
+    </div>
+
+    <script>
+        const searchInput = document.querySelector('#search-input');
+        const searchResults = document.querySelector('#search-results');
+        let timerId;
+
+        searchInput.addEventListener('input', handleInput);
+
+        function handleInput(event) {
+            const term = event.target.value;
+            clearTimeout(timerId);
+            timerId = setTimeout(() => {
+                if (term.length >= 1) {
+                    fetch(`/search/autocomplete2/?term=${term}`)
+                        .then(response => response.json())
+                        .then(data => showResults(data));
+                } else {
+                    clearResults();
+                }
+            }, 300);
+        }
+
+        function showResults(results) {
+            searchResults.innerHTML = '';
+
+            if (results.length > 0) {
+                results.forEach(result => {
+                    const li = document.createElement('li');
+                    li.textContent = result;
+                    li.addEventListener('click', () => {
+                        searchInput.value = result;
+                        clearResults();
+                    });
+                    searchResults.appendChild(li);
+                });
+                searchResults.style.display = 'block';
+            } else {
+                searchResults.style.display = 'none';
+            }
+        }
+
+        function clearResults() {
+            searchResults.innerHTML = '';
+            searchResults.style.display = 'none';
+        }
+    </script>
+    <!--
+    <div align="center">
+        <label style="color:darkblue; font-size: 25px;font-weight:bold">Search for Crabs Specimen Occurrences </label>
+        <input type="text" style="font-size: 16px"  placeholder="Scientific Name" name="ScientificName" required/>
+        <button type="submit" style="width:50px; height:40px;"><i class="fa fa-search fa-lg"></i></button>
+    </div>
+-->
+    <br><br>
+    {% if chk == 1 %}
+    {% for getData in Crab_OccurrenceInsert %}
+    <fieldset style="width:80%;font-family: verdana;text-align:center;background: #e6f2ff; margin:auto; border:0px;" >
+        <legend style=" color:darkblue; text-align: left ;font-family: Arial ;font-size: 30px; font-weight:bold"><i>{{getData.ScientificName}}</i> {{getData.Author}}</legend>
+        <table bgcolor="#e6f2ff" align="center" width="95%">
+            
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Locality</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Locality}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">State</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.State}}</label>
+                </td>
+            </tr>
+            
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Latitude</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Latitude}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Longitude</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Longitude}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Source</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Source}}</label>
+                </td>
+            </tr>
+            
+        </table>
+        <br><br>
+    </fieldset>
+    {% endfor %}
+    {% endif %}
+</form>
+{% endblock %}

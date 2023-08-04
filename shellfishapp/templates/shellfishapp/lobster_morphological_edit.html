@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+{% extends 'shellfishapp/header.html' %}
+{% block content %}
+<html>
+<head>
+	<title>ShellFish</title>
+	<style type="text/css">
+
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+
+</head>
+<body>
+
+
+{% if messages%}
+{% for message in messages %}
+<h2 style="color:black;text-align:center;font-family: verdana;font-size: 25px">{{message}}</h2>
+{% endfor %}
+{% endif %}
+<form method="POST" action="/lobster_morphoupdate/{{Lobster_MorphologicalInsert.id}}" autocomplete="off">
+	<div align="center">
+		{% csrf_token %}
+		<br>
+		<fieldset style="width:80%;font-family: verdana;text-align:left;background: #e6f2ff">
+			<legend style=" color:darkblue; text-align: center;font-family: Arial ;font-size: 25px; font-weight:bold">Diagnostic Features ( Data Edit Page )</legend>
+			<table style="width: 100%">
+				<tr>
+					<!--
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Morphological ID : </label>
+						<label style="color:darkblue; font-size: 15px">{{Lobster_MorphologicalInsert.id}}</label>
+						<br><br>
+					</th>
+                    <th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Lobster ID</label>
+						<input type="text" style="font-size: 15px"  value="{{Lobster_MorphologicalInsert.LobsterID}}" name="LobsterID" readonly/>
+						<br><br>
+					</th>
+				-->
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Scientific Name : </label>
+						<input type="text" style="font-size: 15px" value="{{Lobster_MorphologicalInsert.ScientificName}}" name="ScientificName" readonly/>
+						<br><br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Short Description</label>
+						<input type="text" style="font-size: 15px"  value="{{Lobster_MorphologicalInsert.ShortDescription}}" name="ShortDescription"/>
+						<br><br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Body Nature</label>
+						<input type="text" style="font-size: 15px" value="{{Lobster_MorphologicalInsert.BodyNature}}" name="BodyNature"/>
+						<br><br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Eyes</label>
+						<input type="text" style="font-size: 15px" value="{{Lobster_MorphologicalInsert.Eyes}}" name="Eyes"/>
+						<br><br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Carapace Nature</label>
+						<input type="text" style="font-size: 16px"  value="{{Lobster_MorphologicalInsert.CarapaceNature}}" name="CarapaceNature"/>
+						<br><br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Antennule Segments</label>
+						<input type="text" style="font-size: 16px"  value="{{Lobster_MorphologicalInsert.AntennuleSegments}}" name="AntennuleSegments"/>
+						<br><br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Antennal Plate</label>
+						<input type="text" style="font-size: 16px"  value="{{Lobster_MorphologicalInsert.AntennalPlate}}" name="AntennalPlate"/>
+						<br><br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Abdominal Segments</label>
+						<input type="text" style="font-size: 16px"  value="{{Lobster_MorphologicalInsert.AbdominalSegments}}" name="AbdominalSegments"/>
+						<br><br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Nature of Legs</label>
+						<input type="text" style="font-size: 16px"  value="{{Lobster_MorphologicalInsert.NatureofLegs}}" name="NatureofLegs"/>
+						<br><br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Telson Nature</label>
+						<input type="text" style="font-size: 16px"  value="{{Lobster_MorphologicalInsert.TelsonNature}}" name="TelsonNature"/>
+						<br><br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Sexual Dimorphism</label>
+						<input type="text" style="font-size: 16px"  value="{{Lobster_MorphologicalInsert.SexualDimorphism}}" name="SexualDimorphism"/>
+						<br><br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Specific Remarks</label>
+						<input type="text" style="font-size: 16px"  value="{{Lobster_MorphologicalInsert.SpecificRemarks}}" name="SpecificRemarks"/>
+						<br><br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 16px">Colouration</label>
+						<input type="text" style="font-size: 16px"  value="{{Lobster_MorphologicalInsert.Colouration}}" name="Colouration"/>
+						<br><br>
+					</th>
+				</tr>
+				
+				
+			</table>
+			<input type="submit" class="button button1" value="Update Data"/>
+			<a href ="{% url 'lobster_morpho_view' %}"><button type="button" class="button button1">Back</button></a>
+			<br>
+		</fieldset>
+	</div>
+</form>
+
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ICAR-NBFGR CrustaceanRIS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'shellfishapp/search_style.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <header><img src="{% static 'shellfishapp/images/Shellfish.jpg' %}" width="100%"></header>
+    <div class="topnav">
+        <!--<a href="{% url 'search_page' %}"><i class="fa-solid fa-house"></i> Home </a>-->
+        
+        <!--<div class="search-container">
+            <form action="/action_page.php">&nbsp;
+                <input type="text" placeholder="Search by Scientific Name.." name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>-->
+        <a href ="{% url 'ScientificName_Search' %}"><i class="fa fa-search"></i> Search</a>
+        <div class="dropdown">
+            <button class="dropbtn">Shrimps/Prawns</button>
+            <div class="dropdown-content">
+                <a href="{% url 'taxa_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Taxa</a>
+                <a href="{% url 'generalinformation_search'%}"><i class="fa-solid fa-magnifying-glass"></i> General Information</a>
+                <a href="{% url 'syn_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Synonyms</a>
+                <a href="{% url 'dist_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Distribution</a>
+                <a href="{% url 'speci_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Specimen</a>
+                <a href="{% url 'bio_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Biology</a>
+                <a href="{% url 'morpho_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Diagnostic Features</a>
+                <a href="{% url 'occ_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Specimen Occurrences</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Crabs</button>
+            <div class="dropdown-content">
+                <a href="{% url 'Crab_taxa_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Taxa</a>
+                <a href="{% url 'Crab_generalinformation_search'%}"><i class="fa-solid fa-magnifying-glass"></i> General Information</a>
+                <a href="{% url 'Crab_syn_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Synonyms</a>
+                <a href="{% url 'Crab_speci_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Specimen</a>
+                <a href="{% url 'Crab_morpho_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Diagnostic Features</a>
+                <a href="{% url 'Crab_occ_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Specimen Occurrences</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Lobsters</button>
+            <div class="dropdown-content">
+                <a href="{% url 'lobster_taxa_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Taxa</a>
+                <a href="{% url 'Lobster_generalinformation_search'%}"><i class="fa-solid fa-magnifying-glass"></i> General Information</a>
+                <a href="{% url 'lobster_syn_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Synonyms</a>
+                <a href="{% url 'lobster_speci_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Specimen</a>
+                <a href="{% url 'lobster_morpho_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Diagnostic Features</a>
+                <a href="{% url 'lobster_occ_search'%}"><i class="fa-solid fa-magnifying-glass"></i> Specimen Occurrences</a>
+            </div>
+        </div>
+        <!--
+        <div class="dropdown">
+            <button class="dropbtn">Mollusc</button>
+            <div class="dropdown-content">
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Taxa</a>
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Synonyms</a>
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Distribution</a>
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Specimen</a>
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Biology</a>
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Diagnostic Features</a>
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Specimen Occurrences</a>
+            </div>
+        </div>
+    -->
+        <div class="navbar-right">
+            <div class="collapse navbar-collapse">
+                <a class="nav-link" href="/login" target="_blank"><i class="fa-solid fa-right-to-bracket"></i>Login</a>
+            </div>
+        </div>
+    </div>
+    {% block content %}
+
+    {% endblock %}
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+</body>&nbsp;
+<h1 style="color:white;text-align:center;font-family: verdana;font-size: 15px; background-color : darkslategray; padding : 15px;">Copyright &copy 2022 - All Rights Reserved - ICAR-National Bureau of Fish Genetic Resources</h1>
+</html>

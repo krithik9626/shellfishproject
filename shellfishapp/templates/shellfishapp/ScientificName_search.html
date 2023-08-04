@@ -1,0 +1,913 @@
+{% extends 'shellfishapp/header2.html' %}
+{% block content %}
+<form method="get">
+    
+    <div align="center">
+        
+           <!--
+            {% for getData in TaxonmyDistributionInsert %}
+            <option value="{{ getData.CommonName }}">{{ getData.ScientificName }}</option>
+            {% endfor %}
+            {% for getData in Crab_TaxonmyDistributionInsert %}
+            <option value="{{ getData.CommonName }}">{{ getData.ScientificName }}</option>
+            {% endfor %}
+            {% for getData in Lobster_TaxonmyDistributionInsert %}
+            <option value="{{ getData.CommonName }}">{{ getData.ScientificName }}</option>
+            {% endfor %}
+            -->
+            <style>
+                .combo-box {
+                    position: relative;
+                    overflow-y: auto;
+                }
+        
+                .combo-box .search-results {
+                    display: none;
+                    position: relative;
+                    height: 200px;
+                    left: 0;
+                    width: 19%;
+                    background-color: #f9f9f9;
+                    border: 1px solid #ddd;
+                    padding: 10px;
+                    list-style-type: none;
+                    margin: 0;
+                    overflow-y: auto;
+                }
+        
+                .combo-box .search-results li {
+                    padding: 5px;
+                    cursor: pointer;
+                }
+        
+                .combo-box .search-results li:hover {
+                    background-color: #6ed1f0;
+                }
+            </style>
+            <div class="combo-box">
+                <label style="color: darkblue; font-size: 20px; text-align: center">Select</label>
+        
+        <select id="categorySelect">
+            <option style="color: rgb(1, 1, 5); font-size: 20px; text-align: center" disabled="true" selected>Select Category</option>
+            <option style="color: darkblue; font-size: 20px; text-align: center" value="Shrim/Prawn">Shrim/Prawn</option>
+            
+           
+            <option style="color: darkblue; font-size: 20px; text-align: center"value="Crabs">Crabs</option>
+           
+           
+            <option style="color: darkblue; font-size: 20px; text-align: center"value="Lobster">Lobster</option>
+       </select> 
+       
+       
+       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("#categorySelect").on("change", function() {
+        const selectedOption = $(this).val();
+        
+        if (selectedOption === "Shrim/Prawn") {
+            // Custom behavior for 'Shrim/Prawn' option
+            console.log("Selected: Shrim/Prawn");
+            // Add your custom code here
+            
+                const searchInput = document.querySelector('#search-input');
+                const searchResults = document.querySelector('#search-results');
+                let timerId;
+        
+                searchInput.addEventListener('input', handleInput);
+        
+                function handleInput(event) {
+                    const term = event.target.value;
+                    clearTimeout(timerId);
+                    timerId = setTimeout(() => {
+                    
+                        if (term.length >= 1) {
+                            fetch(`/search/autocomplete1/?term=${term}`)
+                                .then(response => response.json())
+                                .then(data => showResults(data));
+                        } else {
+                            clearResults();
+                        }
+                    }, 2);
+                }
+        
+                function showResults(results) {
+                    searchResults.innerHTML = '';
+        
+                    if (results.length > 0) {
+                        results.forEach(result => {
+                            const li = document.createElement('li');
+                            li.textContent = result;
+                            li.addEventListener('click', () => {
+                                searchInput.value = result;
+                                clearResults();
+                            });
+                            searchResults.appendChild(li);
+                        });
+                        searchResults.style.display = 'block';
+                    } else {
+                        searchResults.style.display = 'none';
+                    }
+                }
+        
+                function clearResults() {
+                    searchResults.innerHTML = '';
+                    searchResults.style.display = 'none';
+                }
+            
+        } else if (selectedOption === "Crabs") {
+            // Custom behavior for 'Crabs' option
+            console.log("Selected: Crabs");
+            // Add your custom code here
+            const searchInput = document.querySelector('#search-input');
+                const searchResults = document.querySelector('#search-results');
+                let timerId;
+        
+                searchInput.addEventListener('input', handleInput);
+        
+                function handleInput(event) {
+                    const term = event.target.value;
+                    clearTimeout(timerId);
+                    timerId = setTimeout(() => {
+                    
+                        if (term.length >= 1) {
+                            fetch(`/search/autocomplete2/?term=${term}`)
+                                .then(response => response.json())
+                                .then(data => showResults(data));
+                        } else {
+                            clearResults();
+                        }
+                    }, 2);
+                }
+        
+                function showResults(results) {
+                    searchResults.innerHTML = '';
+        
+                    if (results.length > 0) {
+                        results.forEach(result => {
+                            const li = document.createElement('li');
+                            li.textContent = result;
+                            li.addEventListener('click', () => {
+                                searchInput.value = result;
+                                clearResults();
+                            });
+                            searchResults.appendChild(li);
+                        });
+                        searchResults.style.display = 'block';
+                    } else {
+                        searchResults.style.display = 'none';
+                    }
+                }
+        
+                function clearResults() {
+                    searchResults.innerHTML = '';
+                    searchResults.style.display = 'none';
+                }
+        } else if (selectedOption === "Lobster") {
+            // Custom behavior for 'Lobster' option
+            console.log("Selected: Lobster");
+            // Add your custom code here
+            const searchInput = document.querySelector('#search-input');
+                const searchResults = document.querySelector('#search-results');
+                let timerId;
+        
+                searchInput.addEventListener('input', handleInput);
+        
+                function handleInput(event) {
+                    const term = event.target.value;
+                    clearTimeout(timerId);
+                    timerId = setTimeout(() => {
+                    
+                        if (term.length >= 1) {
+                            fetch(`/search/autocomplete3/?term=${term}`)
+                                .then(response => response.json())
+                                .then(data => showResults(data));
+                        } else {
+                            clearResults();
+                        }
+                    }, 2);
+                }
+        
+                function showResults(results) {
+                    searchResults.innerHTML = '';
+        
+                    if (results.length > 0) {
+                        results.forEach(result => {
+                            const li = document.createElement('li');
+                            li.textContent = result;
+                            li.addEventListener('click', () => {
+                                searchInput.value = result;
+                                clearResults();
+                            });
+                            searchResults.appendChild(li);
+                        });
+                        searchResults.style.display = 'block';
+                    } else {
+                        searchResults.style.display = 'none';
+                    }
+                }
+        
+                function clearResults() {
+                    searchResults.innerHTML = '';
+                    searchResults.style.display = 'none';
+                }
+        }
+    });
+</script>
+    
+                <!--<input type="text" id="search-input" name="search" autocomplete="off">-->
+                <input type="text" style="font-size: 16px" placeholder="" name="ScientificName" id="search-input" required/>
+                <button type="submit" style="width: 50px; height: 40px;"><i class="fa fa-search fa-lg"></i></button>
+                <ul id="search-results" class="search-results"></ul>
+            </div>
+        
+            
+    
+</div>
+<!--
+    <div align="center">
+        <label style="color: darkblue; font-size: 25px; font-weight: bold">Search for Scientific Name</label>
+        <input type="text" style="font-size: 16px" placeholder="" name="ScientificName" id="sname" required/>
+        <button type="submit" style="width: 50px; height: 40px;"><i class="fa fa-search fa-lg"></i></button>
+    </div>
+-->
+   
+    
+    <script>
+    function updateScientificName() {
+        var selectedScientificName = document.getElementById("scinameid").value;
+        document.getElementById("sname").value = selectedScientificName;
+    }
+    </script>
+    
+    
+    
+    {% if chk == 1%}
+    {% for getData in TaxonmyDistributionInsert %}
+    <fieldset style="width:80%;font-family: verdana;text-align:center;background: #e6f2ff; margin:auto; border:0px;" >
+        <legend style=" color:darkblue; text-align: left ;font-family: Arial ;font-size: 30px; font-weight:bold"><i>{{getData.ScientificName}}</i> {{getData.Author}}</legend>
+        <table bgcolor="#e6f2ff" align="center" width="95%">
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px;">Kingdom</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Kingdom}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Phylum</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Phylum}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sub Phylum</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SubPhylum}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Class</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Class}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sub Class</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SubClass}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Super Order</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SuperOrder}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Order</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Order}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sub Order</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SubOrder}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Infra Order</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.InfraOrder}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Super Family</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SuperFamily}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Family</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Family}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Taxonomic rank</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.TaxonomicRank}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sub Species</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Subspecies}}</label>
+                </td>
+            </tr><tr>
+            <th>
+                <label style="color:darkblue; font-size: 20px">Environment</label>
+            </th>
+            <td>
+                <label style="color:darkblue; font-size: 20px">{{getData.Environment}}</label>
+            </td>
+        </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Common Name</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.CommonName}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Author</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Author}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Conservation Status</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.ConservationStatus}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Population Status</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.PopulationStatus}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Accepted Valid Name</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.AcceptedValidName}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Main Reference</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.MainReference}}</label>
+                </td>
+            </tr>
+        </table>
+        <br><br>
+    </fieldset>
+    {% endfor %}
+    {% for getData in Crab_TaxonmyDistributionInsert %}
+    <fieldset style="width:80%;font-family: verdana;text-align:center;background: #e6f2ff; margin:auto; border:0px;" >
+        <legend style=" color:darkblue; text-align: left ;font-family: Arial ;font-size: 30px; font-weight:bold"><i>{{getData.ScientificName}}</i> {{getData.Author}}</legend>
+        <table bgcolor="#e6f2ff" align="center" width="95%">
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px;">Kingdom</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Kingdom}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Phylum</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Phylum}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sub Phylum</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SubPhylum}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Class</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Class}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sub Class</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SubClass}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Super Order</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SuperOrder}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Order</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Order}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sub Order</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SubOrder}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Infra Order</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.InfraOrder}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Super Family</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SuperFamily}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Family</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Family}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sub Family</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SubFamily}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Genus</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Genus}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Scientific Name</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.ScientificName}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Taxonomic Rank</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.TaxonomicRank}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sub Species</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Subspecies}}</label>
+                </td>
+            </tr>
+            <tr>
+            <th>
+                <label style="color:darkblue; font-size: 20px">Environment</label>
+            </th>
+            <td>
+                <label style="color:darkblue; font-size: 20px">{{getData.Environment}}</label>
+            </td>
+        </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Common Name</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.CommonName}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Author</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Author}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Conservation Status</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.ConservationStatus}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Population Status</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.PopulationStatus}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Accepted Valid Name</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.AcceptedValidName}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Main Reference</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.MainReference}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Distribution In India</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.DistributionInIndia}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Distribution Outside Country</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.DistributionOutsideCountry}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Population Status</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.PopulationStatus}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Origin Type</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.OriginType}}</label>
+                </td>
+            </tr>
+
+        </table>
+        <br><br>
+    </fieldset>
+    {% endfor %}
+    {% for getData in Lobster_TaxonmyDistributionInsert %}
+    <fieldset style="width:80%;font-family: verdana;text-align:center;background: #e6f2ff; margin:auto; border:0px;" >
+        <legend style=" color:darkblue; text-align: left ;font-family: Arial ;font-size: 30px; font-weight:bold"><i>{{getData.ScientificName}}</i> {{getData.Author}}</legend>
+        <table bgcolor="#e6f2ff" align="center" width="95%">
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px;">Kingdom</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Kingdom}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Phylum</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Phylum}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sub Phylum</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SubPhylum}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Class</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Class}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sub Class</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SubClass}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Super Order</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SuperOrder}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Order</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Order}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sub Order</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SubOrder}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Infra Order</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.InfraOrder}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Super Family</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.SuperFamily}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Family</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Family}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Taxonomic Rank</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.TaxonomicRank}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Sub Species</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Subspecies}}</label>
+                </td>
+            </tr><tr>
+            <th>
+                <label style="color:darkblue; font-size: 20px">Environment</label>
+            </th>
+            <td>
+                <label style="color:darkblue; font-size: 20px">{{getData.Environment}}</label>
+            </td>
+        </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Common Name</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.CommonName}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Author</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.Author}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Conservation Status</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.ConservationStatus}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Population Status</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.PopulationStatus}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Accepted Valid Name</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.AcceptedValidName}}</label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Main Reference</label>
+                </th>
+                <td>
+                    <label style="color:darkblue; font-size: 20px">{{getData.MainReference}}</label>
+                </td>
+            </tr>
+        </table>
+        <br><br>
+    </fieldset>
+    {% endfor %}
+    {% for getData in ImageInsert %}
+    <fieldset style="width:80%;font-family: verdana;text-align:center;background: #e6f2ff; margin:auto; border:0px;" >
+        <legend style=" color:darkblue; text-align: left ;font-family: Arial ;font-size: 30px; font-weight:bold"><i>{{getData.ScientificName}}</i></legend>
+        <table bgcolor="#e6f2ff" align="center" width="95%">
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px;vertical-align: middle;">Image1</label>
+                </th>
+                <td>
+                    <img src="{{ getData.Image1.url }}" width="100" height="100">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Image2</label>
+                </th>
+                <td>
+                    <img src="{{ getData.Image2.url }}" width="100" height="100">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Image3</label>
+                </th>
+                <td>
+                    <img src="{{ getData.Image3.url }}" width="100" height="100">
+                </td>
+            </tr>
+           
+        </table>
+        <br><br>
+    </fieldset>
+    {% endfor %}
+
+    {% for getData in Crab_ImageInsert %}
+    <fieldset style="width:80%;font-family: verdana;text-align:center;background: #e6f2ff; margin:auto; border:0px;" >
+        <legend style=" color:darkblue; text-align: left ;font-family: Arial ;font-size: 30px; font-weight:bold"><i>{{getData.ScientificName}}</i></legend>
+        <table bgcolor="#e6f2ff" align="center" width="95%">
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px;">Image1</label>
+                </th>
+                <td>
+                    <img src="{{ getData.Image1.url }}" width="100" height="100">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Image2</label>
+                </th>
+                <td>
+                    <img src="{{ getData.Image2.url }}" width="100" height="100">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Image3</label>
+                </th>
+                <td>
+                    <img src="{{ getData.Image3.url }}" width="100" height="100">
+                </td>
+            </tr>
+           
+        </table>
+        <br><br>
+    </fieldset>
+    {% endfor %}
+
+    {% for getData in Lobster_ImageInsert %}
+    <fieldset style="width:80%;font-family: verdana;text-align:center;background: #e6f2ff; margin:auto; border:0px;" >
+        <legend style=" color:darkblue; text-align: left ;font-family: Arial ;font-size: 30px; font-weight:bold"><i>{{getData.ScientificName}}</i></legend>
+        <table bgcolor="#e6f2ff" align="center" width="95%">
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px;">Image1</label>
+                </th>
+                <td>
+                    <img src="{{ getData.Image1.url }}" width="100" height="100">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Image2</label>
+                </th>
+                <td>
+                    <img src="{{ getData.Image2.url }}" width="100" height="100">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label style="color:darkblue; font-size: 20px">Image3</label>
+                </th>
+                <td>
+                    <img src="{{ getData.Image3.url }}" width="100" height="100">
+                </td>
+            </tr>
+           
+        </table>
+        <br><br>
+    </fieldset>
+    {% endfor %}
+    {% endif %}
+</form>
+<!--
+<div align="center">
+    <th>
+        <a href ="{% url 'search_page' %}"><button type="button" class="button button1">Home Page</button></a>
+    </th>
+</div>-->
+{% endblock %}

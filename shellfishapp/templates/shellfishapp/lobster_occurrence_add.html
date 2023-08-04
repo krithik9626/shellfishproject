@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+{% extends 'shellfishapp/header.html' %}
+{% block content %}
+<html>
+<head>
+    <title>occurrences add data</title>
+    <style type="text/css">
+
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+    <script>
+		if ( window.history.replaceState)
+		{
+			window.history.replaceState( null, null, window.location.href );
+		}
+	</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script>
+        //on document ready
+		$(document).ready(()=>{
+            //adds an handler to the change event on #sinameid
+            $("#scinameid").change((e)=>{
+                let sciname = $(e.target).val().split('-');
+                $("#sid").val(sciname[0]);
+                $("#sname").val(sciname[1]);
+            })
+        });
+	</script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<style>
+    /* Style for the pop-up box */
+    .popup {
+      position: fixed;
+      top: 80%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 100px;
+      padding: 20px;
+      background-color: rgb(234, 242, 247);
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      font-size: 36px;
+    }
+
+    /* Style for the close button */
+    .popup .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body bgcolor="#eff5f5">
+<br>
+<br>
+{% if messages%}
+{% for message in messages %}
+<div class="popup"><span class="close">&times;</span>{{message}}&#x1F609;</div>
+<script>
+// JavaScript to handle the close button functionality
+const closeBtn = document.querySelector('.close');
+const popup = document.querySelector('.popup');
+
+closeBtn.addEventListener('click', () => {
+  popup.style.display = 'none';
+});
+</script>
+{% endfor %}
+{% endif %}
+
+<form method="POST" autocomplete="off">
+    <div align="center">
+
+        {% csrf_token %}
+        <fieldset style="width:80%;font-family: verdana;text-align:left;background: #e6f2ff">
+            <legend style=" color:darkblue; text-align: center;font-family: Arial ;font-size: 25px; font-weight:bold"> Occurrences ( Data Entry Dashboard )</legend>
+            <table style="width: 100%">
+                <tr>
+                    <th>
+                        <label style="color:darkblue; font-size: 16px ">Select</label>
+                        <select id="scinameid" class="scinameclass" onchange="getsciname()">
+                            <option disabled="true" selected>-- Scientific Name --</option>
+                            {% for getData in Lobster_TaxonmyDistributionInsert %}
+                            <option>{{getData.LobsterID}}-{{getData.ScientificName}}</option>
+                            {% endfor %}
+                        </select>
+                    </th>
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">Lobster ID</label>
+                        <input type="text" style="font-size: 16px"  placeholder="Lobster ID" name="LobsterID" id="sid" required/>
+                        <br>
+                        <br>
+                    </th>
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">Scientific Name</label>
+                        <input type="text" style="font-size: 16px"  placeholder="Scientific Name" name="ScientificName" id="sname" required/>
+                        <br>
+                        <br>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">Locality</label>
+                        <input type="text" style="font-size: 16px" placeholder="Locality" name="Locality"/>
+                        <br>
+                        <br>
+                    </th>
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">State</label>
+                        <input type="text" style="font-size: 16px" placeholder="State" name="State"/>
+                        <br>
+                        <br>
+                    </th>
+                    </tr>
+
+                </table>
+                <button id="show-map-button" type="button">Show Map</button>
+                <button id="hide-map-button" type="button" style="display:none;">Hide Map</button>
+                <div id="mapid" style="height: 10px;"></div>
+
+
+                <div id="map-container" style="display: none; height: 400px;"></div>
+
+
+
+
+
+                <script>
+                    const showMapButton = document.getElementById('show-map-button');
+                    const hideMapButton = document.getElementById('hide-map-button');
+                    const mapContainer = document.getElementById('map-container');
+                    const latitudeInput = document.getElementById('latitude');
+                    const longitudeInput = document.getElementById('longitude');
+            
+                    showMapButton.addEventListener('click', () => {
+                        mapContainer.style.display = 'block';
+                        showMapButton.style.display = 'none';
+                        hideMapButton.style.display = 'block';
+                        renderMap();
+                    });
+            
+                    hideMapButton.addEventListener('click', () => {
+                        mapContainer.style.display = 'none';
+                        showMapButton.style.display = 'block';
+                        hideMapButton.style.display = 'none';
+                    });
+            
+                    function renderMap() {
+                        const mymap = L.map('map-container').setView([21.84673, 75.35247], 5);
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                            maxZoom: 18,
+                        }).addTo(mymap);
+            
+                        let marker;
+            
+                        mymap.on('click', (e) => {
+                            if (marker) {
+                                mymap.removeLayer(marker);
+                            }
+            
+                            marker = L.marker(e.latlng).addTo(mymap);
+                            document.getElementById("latitude").value = e.latlng.lat;
+                            document.getElementById("longitude").value = e.latlng.lng;
+                            
+                        });
+                    }
+                </script>
+
+                <table style="width: 100%">
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">Latitude</label>
+                        <input type="text"id="latitude" style="font-size: 16px" placeholder="Latitude" name="Latitude"/>
+                        <br>
+                        <br>
+                    </th>
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">Longitude</label>
+                        <input type="text"id="longitude" style="font-size: 16px" placeholder="Longitude" name="Longitude"/>
+                        <br>
+                        <br>
+                    </th>
+                </tr>
+                <tr>
+                    
+                    <th>
+                        <br>
+                        <label style="color:darkblue; font-size: 16px">Reference</label>
+                        <input type="text" style="font-size: 16px" placeholder="Reference" name="Reference"/>
+                        <br>
+                        <br>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="3">
+                        <input type="submit" class="button button1" value="Add Data"/>
+                        <input type="reset" class="button button2" value="Reset Data"/>
+                        <a href ="{% url 'lobster_occ_view' %}"><button type="button" class="button button1">View All Data</button></a>
+                        <!--<a href ="{% url 'View_page' %}"><button type="button" class="button button1">View Last Data</button></a>-->
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="3">
+                        <a href ="{% url 'home_page' %}"><button type="button" class="button button1">Back to Home Page</button></a>
+                    </th>
+                </tr>
+            </table>
+        </fieldset>
+
+
+
+    </div>
+</form>
+
+
+</body>
+</html>
+
+
+{% endblock %}

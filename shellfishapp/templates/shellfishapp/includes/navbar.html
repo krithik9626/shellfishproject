@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0PX;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color:LightBlue;
+  margin: -3.8px 0px;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  font-style: bold;
+  color: DarkBlue;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+    color: rgb(5, 5, 160);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  border-radius: 10px;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #f9f9f9;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 140px;
+  box-shadow: 0px 8px 12px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 10px;
+}
+
+.dropdown-content a {
+  float: none;
+  color: rgb(2, 2, 18);
+  padding: 12px 12px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  border-radius: 10px;
+}
+
+.dropdown-content a:hover {
+  background-color: #6ad2e2;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.navbar-right {
+  float: right;
+  }
+</style>
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div class="navbar" style="border-radius: 5px; text-align:center;">
+    <a href="{% url 'home_page' %}"><i class="fa-solid fa-house"></i> Home </a>
+    {% if user.is_authenticated %}
+    <div class="dropdown">
+        <button class="dropbtn">Shrimps/Prawns</button>
+        <div class="dropdown-content">
+            <a href="{% url 'taxo_add'%}">Taxonomy & Distribution</a>
+            <a href="{% url 'generalinformation_add'%}">General Information</a>
+            <a href="{% url 'syn_add'%}">Synonyms</a>
+            <a href="{% url 'morpho_add'%}"> Diagnostic Features</a>
+            <a href="{% url 'speci_add'%}">Type Specimen</a>
+            <a href="{% url 'bio_add'%}">Biology</a>
+            <a href="{% url 'occ_add'%}">Specimen Occurrences</a>
+            <!--<a href="{% url 'typelocality_add'%}">TypeLocality</a>-->
+            
+            <a href="{% url 'img_add'%}">Upload Images</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Crabs</button>
+        <div class="dropdown-content">
+            <a href="{% url 'Crab_taxo_add'%}">Taxonomy & Distribution</a>
+            <a href="{% url 'Crab_generalinformation_add'%}">General Information</a>
+            <a href="{% url 'Crab_syn_add'%}">Synonyms</a>
+            <a href="{% url 'Crab_morpho_add'%}"> Diagnostic Features</a>
+            <a href="{% url 'Crab_speci_add'%}">Type Specimen</a>
+            
+            <a href="{% url 'Crab_occ_add'%}">Specimen Occurrences</a>
+            <a href="{% url 'Crab_img_add'%}">Upload Images</a>
+        </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Lobster</button>
+      <div class="dropdown-content">
+          <a href="{% url 'lobster_taxo_add'%}">Taxonomy & Distribution</a>
+          <a href="{% url 'Lobster_generalinformation_add'%}">General Information</a>
+          <a href="{% url 'lobster_syn_add'%}">Synonyms</a>
+          <a href="{% url 'lobster_morpho_add'%}"> Diagnostic Features</a>
+          <a href="{% url 'lobster_speci_add'%}">Type Specimen</a>
+          <a href="{% url 'lobster_occ_add'%}">Specimen Occurrences</a>
+          <a href="{% url 'lobster_img_add'%}">Upload Images</a>
+      </div>
+  </div>
+  <!--
+    <div class="dropdown">
+        <button class="dropbtn">Mollusc</button>
+        <div class="dropdown-content">
+            <a href="#">Taxonomy & Distribution</a>
+            <a href="#">Synonyms</a>
+            <a href="#"> Diagnostic Features</a>
+            <a href="#">Type Specimen</a>
+            <a href="#">Biology</a>
+            <a href="#">Specimen Occurrences</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Seaweeds</button>
+        <div class="dropdown-content">
+            <a href="#">Taxonomy & Distribution</a>
+            <a href="#">Synonyms</a>
+            <a href="#"> Diagnostic Features</a>
+            <a href="#">Type Specimen</a>
+            <a href="#">Biology</a>
+            <a href="#">Specimen Occurrences</a>
+        </div>
+    </div>
+  -->
+    <div class="navbar-right">
+        <div class="collapse navbar-collapse" id="navbarText">
+            <a class="nav-link"><i class="fa-solid fa-user"></i>Welcome, {{user.username}}</a>
+            <a class="nav-link" href="/logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+            {% else %}
+            <div class="navbar-right">
+                <a class="nav-link" href="/register"><i class="fa-solid fa-user-plus"></i>Sign Up</a>
+                <a class="nav-link" href="/login"><i class="fa-solid fa-right-to-bracket"></i>Login</a>
+                <a class="nav-link" href="/admin"><i class="fa-solid fa-user"></i>Admin</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

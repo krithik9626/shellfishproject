@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+{% extends 'shellfishapp/header.html' %}
+{% block content %}
+<html>
+<head>
+    <title>occurrence</title>
+    <style type="text/css">
+
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+
+</head>
+<body>
+
+
+<br>
+<div align="center">
+    <fieldset style="width:80%;font-family: verdana;text-align:left;background: #e6f2ff" >
+        <legend style=" color:darkblue; text-align: center ;font-family: Arial ;font-size: 25px; font-weight:bold">Occurrence ( Data View Page )</legend>
+
+        <table bgcolor="#e6f2ff" align="center" width="100%">
+            <tr>
+                <!--<th>id</th>-->
+                <!--<th>GBIFID</th>-->
+                <th>S No.</th>
+                <th>Family</th>
+                <th>Genus</th>
+                <!--<th>ShrimpPrawnID</th>-->
+                <th>Scientific Name</th>
+                <th>Author</th>
+                <th>Taxon Rank</th>
+                <th>Country</th>
+                <th>Locality</th>
+                <th>State / Province</th>
+                <th>Occurrence Status</th>
+                <!--<th>IndividualCount</th>-->
+                <!--<th>Latitude</th>-->
+                <!--<th>Longitude</th>-->
+                <th>Record Basis</th>
+                <!--<th>InstitutionCode</th>-->
+                <th>Catalogue Number</th>
+                <th>Identified By</th>
+                <!--<th>License</th>-->
+                <th>Type Status</th>
+                <!--<th>EstablishmentMeans</th>-->
+                <th>More Options </th>
+            </tr>
+            {% for getData in vw %}
+            <tr>
+                <!--<td>{{getData.id}}</td>-->
+                <!--<td>{{getData.GBIFID}}</td>-->
+                <td>{{vw.start_index|add:forloop.counter0}}</td>
+                <td>{{getData.Family}}</td>
+                <td>{{getData.Genus}}</td>
+                <!--<td>{{getData.ShrimpPrawnID}}</td>-->
+                <td>{{getData.ScientificName}}</td>
+                <td>{{getData.Author}}</td>
+                <td>{{getData.TaxonRank}}</td>
+                <td>{{getData.CountryCode}}</td>
+                <td>{{getData.Locality}}</td>
+                <td>{{getData.StateProvince}}</td>
+                <td>{{getData.OccurrenceStatus}}</td>
+                <!--<td>{{getData.IndividualCount}}</td>-->
+                <!--<td>{{getData.Latitude}}</td>-->
+                <!--<td>{{getData.Longitude}}</td>-->
+                <td>{{getData.RecordBasis}}</td>
+                <!--<td>{{getData.InstitutionCode}}</td>-->
+                <td>{{getData.CatalogueNumber}}</td>
+                <td>{{getData.IdentifiedBy}}</td>
+                <!--<td>{{getData.License}}</td>-->
+                <td>{{getData.TypeStatus}}</td>
+                <!--<td>{{getData.EstablishmentMeans}}</td>-->
+                <td>
+                    <a href="/occedit/{{getData.id}}">Edit</a>
+                    <br>
+                    <a href="/occdelete/{{getData.id}}" onclick="return confirm('Are you sure want to delete')">Delete</a>
+                </td>
+            </tr>
+
+            {% endfor %}
+            <tr>
+                <th colspan="17">
+                    <a href ="{% url 'home_page' %}"><button type="button" class="button button1">Back to Home Page</button></a>
+                </th>
+            </tr>
+
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if vw.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ vw.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ vw.number }} of {{ vw.paginator.num_pages }}.
+                </span>
+        
+                {% if vw.has_next %}
+                    <a href="?page={{ vw.next_page_number }}">next</a>
+                    <a href="?page={{ vw.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </fieldset>
+</div>
+
+</body>
+</html>
+{% endblock %}

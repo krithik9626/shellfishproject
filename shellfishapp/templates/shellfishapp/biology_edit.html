@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+{% extends 'shellfishapp/header.html' %}
+{% block content %}
+<html>
+<head>
+	<title>Biology</title>
+	<style type="text/css">
+
+	input[type=text],select {
+	width:40%;
+	padding: 10px 16px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button1 {background-color: #008CBA;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+
+		table,tr,th,td{
+			border: 1px solid #66adff;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			border-collapse: collapse;
+		}
+		th{
+		text-align:center;
+		border-collapse: collapse;
+		}
+
+	</style>
+
+</head>
+<body>
+
+
+{% if messages%}
+{% for message in messages %}
+<h2 style="color:black;text-align:center;font-family: verdana;font-size: 25px">{{message}}</h2>
+{% endfor %}
+{% endif %}
+<form method="POST" action="/bioupdate/{{BiologyInsert.id}}" autocomplete="off">
+	<div align="center">
+
+		{% csrf_token %}
+		<br>
+
+		<fieldset style="width:80%;font-family: verdana;text-align:left;background: #e6f2ff">
+			<legend style=" color:darkblue; text-align: center;font-family: Arial ;font-size: 25px; font-weight:bold">Biology ( Data Edit Page )</legend>
+
+			<table style="width: 100%">
+				<tr>
+					<!--
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Biology ID : </label>
+						<label style="color:darkblue; font-size: 15px">{{BiologyInsert.id}}</label>
+						<br><br>
+					</th>
+				-->
+					<th colspan="2">
+						<br>
+						<label style="color:darkblue; font-size: 15px">Scientific Name</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.ScientificName}}" name="ScientificName" readonly/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Shrimp Prawn ID</label>
+						<input type="text" style="font-size: 15px"  value="{{BiologyInsert.ShrimpPrawnID}}" name="ShrimpPrawnID" readonly/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Ecology/Habitat</label>
+						<input type="text" style="font-size: 15px"  value="{{BiologyInsert.Ecology_Habitat}}" name="Ecology_Habitat"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Life Cycle And Mating Behaviour</label>
+						<input type="text" style="font-size: 15px"  value="{{BiologyInsert.LifeCycleAndMatingBehaviour}}" name="LifeCycleAndMatingBehaviour"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Lifespan</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.LifeSpan}}" name="LifeSpan"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Symbiotic Relationship</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.SymbioticRelationship}}" name="SymbioticRelationship"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Depth Ranges</label>
+						<input type="text" style="font-size: 15px"  value="{{BiologyInsert.DepthRanges}}" name="DepthRanges"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Biology</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.Biology}}" name="Biology"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Sex</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.Sex}}" name="Sex"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Size Ranges In Total Length</label>
+						<input type="text" style="font-size: 15px"  value="{{BiologyInsert.SizeRangesTotalLength}}" name="SizeRangesTotalLength"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Size Ranges In Carapace Length</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.SizeRangesCarapaceLength}}" name="SizeRangesCarapaceLength"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Reproduction Strategy</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.ReproductionStrategy}}" name="ReproductionStrategy"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Breeding Season</label>
+						<input type="text" style="font-size: 15px"  value="{{BiologyInsert.BreedingSeason}}" name="BreedingSeason"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Sexual Dimorphism</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.SexualDimorphism}}" name="SexualDimorphism"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Molting Frequency</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.MoltingFrequency}}" name="MoltingFrequency"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Breeding Frequency</label>
+						<input type="text" style="font-size: 15px"  value="{{BiologyInsert.BreedingFrequency}}" name="BreedingFrequency"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Age Sexual Maturity</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.AgeSexualMaturity}}" name="AgeSexualMaturity"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Fecundity</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.Fecundity}}" name="Fecundity"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Larval Development</label>
+						<input type="text" style="font-size: 15px"  value="{{BiologyInsert.LarvalDevelopment}}" name="LarvalDevelopment"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Group</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.Group}}" name="Group"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Mobility</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.Mobility}}" name="Mobility"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Dispersion</label>
+						<input type="text" style="font-size: 15px"  value="{{BiologyInsert.Dispersion}}" name="Dispersion"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Feeding Behaviour</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.FeedingBehaviour}}" name="FeedingBehaviour"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Feeding Type</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.FeedingType}}" name="FeedingType"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Food Items</label>
+						<input type="text" style="font-size: 15px"  value="{{BiologyInsert.FoodItems}}" name="FoodItems"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Commerical Importance</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.CommericalImportance}}" name="CommericalImportance"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Ecological Utlity</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.EcologicalUtlity}}" name="EcologicalUtlity"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Economic Utility</label>
+						<input type="text" style="font-size: 15px"  value="{{BiologyInsert.EconomicUtility}}" name="EconomicUtility"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Aquaculture Utility</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.AquacultureUtility}}" name="AquacultureUtility"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Consumer Utility</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.ConsumerUtility}}" name="ConsumerUtility"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Competitors</label>
+						<input type="text" style="font-size: 15px"  value="{{BiologyInsert.Competitors}}" name="Competitors"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Ecological Impact</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.EcologicalImpact}}" name="EcologicalImpact"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Economic Impact</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.EconomicImpact}}" name="EconomicImpact"/>
+						<br>
+						<br>
+					</th>
+					<th>
+						<br>
+						<label style="color:darkblue; font-size: 15px">Comments</label>
+						<input type="text" style="font-size: 15px" value="{{BiologyInsert.Comments}}" name="Comments"/>
+						<br>
+						<br>
+					</th>
+				</tr>
+			</table>
+			<input type="submit" class="button button1" value="Update Data"/>
+			<a href ="{% url 'bio_view' %}"><button type="button" class="button button1">Back</button></a>
+			<br>
+		</fieldset>
+
+
+	</div>
+</form>
+
+
+
+
+
+
+</body>
+</html>
+
+{% endblock %}
