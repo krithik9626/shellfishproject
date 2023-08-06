@@ -59,7 +59,7 @@ We welcome contributions to enhance CrustaceaRIS. To contribute, follow these st
 
 ## Contact
 
-For any questions or suggestions, please contact us at Ksankityadav@gmail.com 
+For any questions or suggestions, please contact us at pathakajey@gmail.com,vikasskumar@gmail.com,ravinbfgr@gmail.com
 
 ## Acknowledgments
 
